@@ -1,10 +1,6 @@
 <?php
-include __DIR__ . '/AdminControllerClass.php';
-include __DIR__ . '/PatientControllerClass.php';
-include __DIR__ . '/ExcuseControllerClass.php';
+include __DIR__.'/AdminControllerClass.php';
 use controllers\AdminControllerClass;
-use controllers\PatientControllerClass;
-use controllers\ExcuseControllerClass;
 
 /*
 Admin

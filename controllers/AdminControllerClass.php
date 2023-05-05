@@ -83,8 +83,8 @@ class AdminControllerClass extends AdminRepositoryClass
         $about = $this->customPOSTTrim('about');
         $address = $this->customPOSTTrim('address');
         $id = $_SESSION['loggedin_id'];
-       
-        if ($this->updateAdmin($id, $name, $email, $phone, $address, $about) ) {
+
+        if ($this->updateAdmin($id, $name, $email, $phone, $address, $about)) {
             if (isset($_SESSION['error'])) {
                 unset($_SESSION['error']);
             }

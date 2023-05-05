@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+include_once __DIR__.'/../includes/check_login.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +52,7 @@
             <div class="tab-pane fade show active  profile-edit pt-3" id="profile-edit">
 
               <!-- Profile Edit Form -->
-              <form action="<?php echo $root.'/controllers/GeneralController.php'?>" method="POST">
+              <form  method="POST" action="<?php echo $root.'/controllers/GeneralController.php'; ?>" >
 
                 <div class="row mb-3">
                   <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
@@ -105,8 +107,8 @@
 </section>
 
 </main><!-- End #main -->
-<?php include_once'../includes/scripts.php' ?>
-  <?php include_once'../includes/footer.php' ?>
+<?php include_once '../includes/scripts.php' ?>
+  <?php include_once '../includes/footer.php' ?>
 
 
 

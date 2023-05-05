@@ -6,8 +6,10 @@ class AdminRepositoryClass extends DatabaseConnection
 {
     public function saveNewAdmin($name, $email, $phone, $address, $about, $password){
 
-        $sqlQ = 'INSERT INTO admins (name, email, phone, address, about, password) VALUE(?,?,?,?,?,?)';
+        $sqlQ = 'INSERT INTO users (name, email, phone, address, about, password) VALUE(?,?,?,?,?,?)';
         if (!$bindP= $this->db->prepare($sqlQ)) {
+            session_start();
+            $_SESSION['debug_error'] = $this->db->errorInfo(); 
            return false;
         }
         else{
@@ -21,19 +23,22 @@ class AdminRepositoryClass extends DatabaseConnection
                 return true;
             }
             else{
+                session_start();
+                $_SESSION['debug_error'] =$bindP->errorInfo();
                 return false;
             }
         }
     }
     //authenticate admin login
-    public function authentication($nickname, $password)
+    public function authentication($email, $password)
     {
-        $sqlQ = 'SELECT * FROM admins WHERE email =? AND password =? LIMIT 1';
-        if (!($bindP = $this->db->prepare($sqlQ))) {
+        $sqlQ = 'SELECT * FROM users WHERE email =? AND password =? LIMIT 1';
+        if (!$bindP = $this->db->prepare($sqlQ)) {
+            $_SESSION['debug_error'] = $this->db->errorInfo(); 
             $result = false;
         } else {
-            //bind and removev sql injection
-            $bindP->bindParam(1, $nickname);
+            //bind and remove sql injection
+            $bindP->bindParam(1, $email);
             $bindP->bindParam(2, $password);
 
             if ($bindP->execute()) {
@@ -48,17 +53,18 @@ class AdminRepositoryClass extends DatabaseConnection
                 
                
             } else {
+                $_SESSION['debug_error'] =$bindP->errorInfo();
                 $result = false;
             }
         }
         return $result;
     }
 
-    //fetch admins
-    public function fetchAllAdmins()
+    //fetch users
+    public function fetchAllusers()
     {
-        $sqlQ = 'SELECT * FROM admins ORDER BY id DESC LIMIT 30';
-        if (!($bindP = $this->db->prepare($sqlQ))) {
+        $sqlQ = 'SELECT * FROM users ORDER BY id DESC LIMIT 30';
+        if (!$bindP = $this->db->prepare($sqlQ)) {
             $result = false;
         } else {
             if ($bindP->execute()) {
@@ -71,7 +77,7 @@ class AdminRepositoryClass extends DatabaseConnection
     }
     public function fetchAdmin($id)
     {
-        $sqlQ = 'SELECT * FROM admins WHERE id = ? LIMIT 1';
+        $sqlQ = 'SELECT * FROM users WHERE id = ? LIMIT 1';
         if (!($bindP = $this->db->prepare($sqlQ))) {
             $result = null;
         } else {
@@ -87,7 +93,7 @@ class AdminRepositoryClass extends DatabaseConnection
     public function updateAdmin($id, $name, $email, $phone, $address, $about){
     
         // $date_created = date ('Y-m-d H:i:s');
-        $sqlQ = 'UPDATE admins SET name = ?, email =?, phone = ?, address =?, about = ? WHERE id =?';
+        $sqlQ = 'UPDATE users SET name = ?, email =?, phone = ?, address =?, about = ? WHERE id =?';
         if (!$bindP= $this->db->prepare($sqlQ)) {
             return false;
         }
