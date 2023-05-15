@@ -58,7 +58,7 @@ $movieData = $movieRepo->fetchAllMovies();
                 <tbody>
                     <?php foreach($movieData as $key => $movie){ ?>
                   <tr>
-                    <th scope="row"><?php  echo ++$key; ?></th>
+                    <td><?php  echo ++$key; ?></td>
                     <td><?php echo $movie['movie_title'] ?></td>
                     <td><a href="#" class="text-primary">Action Movie</a></td>
                     <td><?php echo $movie['movie_description'] ?></td>
